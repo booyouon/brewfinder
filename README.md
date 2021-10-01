@@ -1,5 +1,9 @@
 # brewfinder
 
+## Project Description
+Brew finder is an application used to find breweries based on your search!
+
+## API sample
 ```json
     {
         "id": 8865,
@@ -60,45 +64,24 @@
         "website_url": "http://www.bossdogbrewing.com",
         "updated_at": "2018-07-24T00:00:00.000Z",
         "created_at": "2018-07-24T00:00:00.000Z"
-    },
-    {
-        "id": 10213,
-        "obdb_id": "diving-dog-brewhouse-oakland",
-        "name": "Diving Dog Brewhouse",
-        "brewery_type": "micro",
-        "street": "1802 Telegraph Ave",
-        "address_2": null,
-        "address_3": null,
-        "city": "Oakland",
-        "state": "California",
-        "county_province": null,
-        "postal_code": "94612-2110",
-        "country": "United States",
-        "longitude": "-122.2698881",
-        "latitude": "37.807739",
-        "phone": "5103061914",
-        "website_url": "http://www.divingdogbrew.com",
-        "updated_at": "2018-08-23T00:00:00.000Z",
-        "created_at": "2018-07-24T00:00:00.000Z"
-    },
-    {
-        "id": 10230,
-        "obdb_id": "dog-days-brewing-bremerton",
-        "name": "Dog Days Brewing",
-        "brewery_type": "brewpub",
-        "street": "260 4th St",
-        "address_2": null,
-        "address_3": null,
-        "city": "Bremerton",
-        "state": "Washington",
-        "county_province": null,
-        "postal_code": "98337-1813",
-        "country": "United States",
-        "longitude": "-122.6259002",
-        "latitude": "47.5658843",
-        "phone": "3606279925",
-        "website_url": "https://www.dogdaysbrewing.com",
-        "updated_at": "2020-10-11T00:00:00.000Z",
-        "created_at": "2018-07-24T00:00:00.000Z"
-    },
-    ```
+    }
+```
+ ## Wireframes
+ 
+ ## MVP
+
+- [ ] Use an API to populate the search query
+- [ ] Render the search onto the page 
+- [ ] Style with Flexbox
+- [ ] Responsive design with media queries
+- [ ] Deploy Site
+
+## Post-MVP
+- [ ] Use a map API to display the searches
+- [ ] Apply CRUD by either adding a reviews page or a way users can add their own breweries
+
+## Project Schedule
+
+## Timeframes
+
+## Code Snippet
