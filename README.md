@@ -73,6 +73,8 @@ Brew finder is an application used to find breweries based on your search!
 
 ## Wireframes
 
+[Link to wireframe](https://whimsical.com/brew-maps-Jr1K564XSfDG8kh8ktuYPt)
+
 ## MVP
 
 - [ ] Use an API to populate the search query

@@ -38,9 +38,30 @@ const fetchData = (domain) =>
 const domElCreate = (data, num) => {
   const searchDiv = document.createElement("div");
   const p = document.createElement("p");
-  p.innerHTML = `${num + 1}. Name: ${data[num].name}`;
+  const h3 = document.createElement("h3");
+  h3.innerText = `${num + 1}. ${data[num].name}`;
+  p.innerHTML = `${data[num].brewery_type} in ${data[num].city}, ${data[num].state}`;
+  p.style.textTransform = "capitalize";
   searchContainer.append(searchDiv);
-  searchDiv.append(p);
+  searchDiv.append(h3, p);
+  if (data[num].website_url) {
+    const a = document.createElement("a");
+    a.innerText = data[num].website_url;
+    a.href = data[num].website_url;
+    searchDiv.append(a);
+  }
+  if (data[num].phone) {
+    const a = document.createElement("a");
+    a.innerText = data[num].phone;
+    a.href = `tel:${data[num].phone}`;
+    searchDiv.append(a);
+  }
+};
+
+// function to format each phone number input
+// I made this because I hate how the data retrieves raw numbers without the () or -
+let formatPhone = (str) => {
+  str.insert(0);
 };
 
 // function domUpdate is used to update the dom with the fetched API data
