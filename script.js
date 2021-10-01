@@ -52,7 +52,7 @@ const domElCreate = (data, num) => {
   }
   if (data[num].phone) {
     const a = document.createElement("a");
-    a.innerText = data[num].phone;
+    a.innerText = formatPhone(data[num].phone);
     a.href = `tel:${data[num].phone}`;
     searchDiv.append(a);
   }
@@ -61,7 +61,11 @@ const domElCreate = (data, num) => {
 // function to format each phone number input
 // I made this because I hate how the data retrieves raw numbers without the () or -
 let formatPhone = (str) => {
-  str.insert(0);
+  const results = str.split("");
+  results.splice(0, 0, "(");
+  results.splice(4, 0, ") ");
+  results.splice(8, 0, "-");
+  return results.join("");
 };
 
 // function domUpdate is used to update the dom with the fetched API data

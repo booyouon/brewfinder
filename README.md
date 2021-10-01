@@ -1,5 +1,3 @@
-# <<<<<<< HEAD
-
 # brewfinder
 
 ## Project Description
@@ -94,5 +92,3 @@ Brew finder is an application used to find breweries based on your search!
 ## Timeframes
 
 ## Code Snippet
-
-> > > > > > > 9ada2934a8bbec36e8a75405c55e1ad20f7a2833
