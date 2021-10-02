@@ -1,5 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+/* Main */
 .main__h3,
 .previous,
 .next {
   display: none;
+}
+
+.searchContainer,
+.searchDiv {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }

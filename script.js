@@ -8,7 +8,7 @@ const submitButton = document.querySelector("#searchSubmit");
 const searchHeading = document.querySelector(".main__h3");
 const searchContainer = document.querySelector(".searchContainer");
 const pageBtns = document.querySelector(".pageBtns");
-let pageCounter = 0;
+let pageCounter;
 
 // when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
 // a fetch request will then be sent and then the searchContainer will populate with the search query
@@ -32,8 +32,9 @@ const fetchData = (domain) =>
     .then((resjson) => {
       domUpdate(resjson);
 
-      // If api content that comes back is greater than 10, then the nextBtn and prevBtn allow to dynamically update the page through the
+      // If api content that comes back is greater than 10, then the nextBtn and prevBtn allow to dynamically update the page
       if (resjson.length > 10) {
+        // code for adding the prevBtn and nextBtn elements
         const prevBtn = document.createElement("button");
         const nextBtn = document.createElement("button");
         prevBtn.innerText = "previous";
@@ -42,8 +43,9 @@ const fetchData = (domain) =>
         nextBtn.className = "next";
         pageBtns.append(prevBtn, nextBtn);
         nextBtn.style.display = "block";
+
+        //nextBtn event listener
         nextBtn.addEventListener("click", () => {
-          console.log(pageCounter);
           searchContainer.innerHTML = "";
           pageCounter++;
           domUpdate(resjson);
@@ -53,6 +55,7 @@ const fetchData = (domain) =>
           }
         });
 
+        //prevBtn event listener
         prevBtn.addEventListener("click", () => {
           searchContainer.innerHTML = "";
           pageCounter--;
@@ -73,6 +76,7 @@ const domElCreate = (data, num) => {
   const searchDiv = document.createElement("div");
   const p = document.createElement("p");
   const h3 = document.createElement("h3");
+  searchDiv.className = "searchDiv";
   h3.innerText = `${num + 1}. ${data[num].name}`;
   p.innerHTML = `${data[num].brewery_type} in ${data[num].city}, ${data[num].state}`;
   p.style.textTransform = "capitalize";
