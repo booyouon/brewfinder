@@ -7,8 +7,7 @@ const domain = "https://api.openbrewerydb.org/breweries";
 const submitButton = document.querySelector("#searchSubmit");
 const searchHeading = document.querySelector(".main__h3");
 const searchContainer = document.querySelector(".searchContainer");
-const nextBtn = document.querySelector(".next");
-const prevBtn = document.querySelector(".previous");
+const pageBtns = document.querySelector(".pageBtns");
 let pageCounter = 0;
 
 // when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
@@ -17,6 +16,7 @@ submitButton.addEventListener("click", (ev) => {
   pageCounter = 0;
   ev.preventDefault();
   searchContainer.innerHTML = "";
+  pageBtns.innerHTML = "";
   searchHeading.style.display = "block";
   const submitValue = document.querySelector("#searchValue").value;
   const search = domain + "/search?query=" + submitValue;
@@ -31,29 +31,38 @@ const fetchData = (domain) =>
     })
     .then((resjson) => {
       domUpdate(resjson);
+
       // If api content that comes back is greater than 10, then the nextBtn and prevBtn allow to dynamically update the page through the
       if (resjson.length > 10) {
+        const prevBtn = document.createElement("button");
+        const nextBtn = document.createElement("button");
+        prevBtn.innerText = "previous";
+        nextBtn.innerText = "next";
+        prevBtn.className = "previous";
+        nextBtn.className = "next";
+        pageBtns.append(prevBtn, nextBtn);
         nextBtn.style.display = "block";
-      }
-      nextBtn.addEventListener("click", () => {
-        searchContainer.innerHTML = "";
-        pageCounter++;
-        domUpdate(resjson);
-        prevBtn.style.display = "block";
-        if (resjson.length - pageCounter * 10 < 10) {
-          nextBtn.style.display = "none";
-        }
-      });
+        nextBtn.addEventListener("click", () => {
+          console.log(pageCounter);
+          searchContainer.innerHTML = "";
+          pageCounter++;
+          domUpdate(resjson);
+          prevBtn.style.display = "block";
+          if (resjson.length - pageCounter * 10 < 10) {
+            nextBtn.style.display = "none";
+          }
+        });
 
-      prevBtn.addEventListener("click", () => {
-        searchContainer.innerHTML = "";
-        pageCounter--;
-        domUpdate(resjson);
-        nextBtn.style.display = "block";
-        if (pageCounter === 0) {
-          prevBtn.style.display = "none";
-        }
-      });
+        prevBtn.addEventListener("click", () => {
+          searchContainer.innerHTML = "";
+          pageCounter--;
+          domUpdate(resjson);
+          nextBtn.style.display = "block";
+          if (pageCounter === 0) {
+            prevBtn.style.display = "none";
+          }
+        });
+      }
     })
     .catch((e) => {
       console.log(`Error: ${e}`);
