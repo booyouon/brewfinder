@@ -1,3 +1,5 @@
-.main__h3 {
+.main__h3,
+.previous,
+.next {
   display: none;
 }

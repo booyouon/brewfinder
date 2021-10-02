@@ -75,10 +75,9 @@ Brew finder is an application used to find breweries based on your search!
 
 ## MVP
 
-- [ ] Use an API to populate the search query
-- [ ] Render the search onto the page
-- [ ] Style with Flexbox
-- [ ] Responsive design with media queries
+- [x] Use an API to populate the search query
+- [x] Render the search onto the page
+- [ ] Responsize style with Flexbox and media queries
 - [ ] Deploy Site
 
 ## Post-MVP
