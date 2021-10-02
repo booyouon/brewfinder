@@ -30,6 +30,7 @@ const fetchData = (domain) =>
       return res.json();
     })
     .then((resjson) => {
+      console.log(resjson);
       domUpdate(resjson);
 
       // If api content that comes back is greater than 10, then the nextBtn and prevBtn allow to dynamically update the page
@@ -93,6 +94,11 @@ const domElCreate = (data, num) => {
     a.innerText = formatPhone(data[num].phone);
     a.href = `tel:${data[num].phone}`;
     searchDiv.append(a);
+  }
+  if (data[num].street) {
+    const address = document.createElement("address");
+    address.innerHTML = `${data[num].street}, ${data[num].state}, ${data[num].state}`;
+    searchDiv.append(address);
   }
 };
 
