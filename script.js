@@ -4,6 +4,8 @@
 // populate featured div with my selected breweries
 // api address
 const domain = "https://api.openbrewerydb.org/breweries";
+const linkPrevDomain =
+  "http://api.linkpreview.net/?key=f14050be5f1332fc8bd9e8d9f84db942&q=";
 const submitButton = document.querySelector("#searchSubmit");
 const searchHeading = document.querySelector(".main__h3");
 const searchContainer = document.querySelector(".searchContainer");
@@ -20,11 +22,11 @@ submitButton.addEventListener("click", (ev) => {
   searchHeading.style.display = "block";
   const submitValue = document.querySelector("#searchValue").value;
   const search = domain + "/search?query=" + submitValue;
-  fetchData(search);
+  fetchBrewData(search);
 });
 
 // function fetchData is used to send the get the api request, also contains domUpdate in order to update the DOM content
-const fetchData = (domain) =>
+const fetchBrewData = (domain) =>
   fetch(domain)
     .then((res) => {
       return res.json();
@@ -72,6 +74,19 @@ const fetchData = (domain) =>
       console.log(`Error: ${e}`);
     });
 
+const fetchLinkPreview = (domain) => {
+  fetch(domain)
+    .then((res) => {
+      return res.json();
+    })
+    .then((resjson) => {
+      console.log(resjson);
+    })
+    .catch((e) => {
+      console.log(`Error: ${e}`);
+    });
+};
+
 // domElCreate is used to specify what will be created inside domUpdate
 const domElCreate = (data, num) => {
   const searchDiv = document.createElement("div");
@@ -83,25 +98,30 @@ const domElCreate = (data, num) => {
   p.style.textTransform = "capitalize";
   searchContainer.append(searchDiv);
   searchDiv.append(h3, p);
-  if (data[num].website_url) {
-    const a = document.createElement("a");
-    a.innerText = data[num].website_url;
-    a.href = data[num].website_url;
-    searchDiv.append(a);
-  }
-  if (data[num].phone) {
-    const a = document.createElement("a");
-    a.innerText = formatPhone(data[num].phone);
-    a.href = `tel:${data[num].phone}`;
-    searchDiv.append(a);
-  }
   if (data[num].street) {
     const address = document.createElement("address");
     address.innerHTML = `${data[num].street}, ${data[num].state}, ${data[num].state}`;
     searchDiv.append(address);
   }
+  if (data[num].phone) {
+    const phone = document.createElement("a");
+    phone.innerText = formatPhone(data[num].phone);
+    phone.href = `tel:${data[num].phone}`;
+    searchDiv.append(phone);
+  }
+  if (data[num].website_url) {
+    const website = document.createElement("a");
+    website.innerText = data[num].website_url;
+    website.href = data[num].website_url;
+    searchDiv.append(website);
+    const a = document.createElement("a");
+    a.innerText = "More Info";
+    searchDiv.append(a);
+    a.addEventListener("click", () => {
+      fetchLinkPreview(linkPrevDomain + data[num].website_url);
+    });
+  }
 };
-
 // function to format each phone number input
 // I made this because I hate how the data retrieves raw numbers without the () or -
 const formatPhone = (str) => {

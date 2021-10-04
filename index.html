@@ -8,19 +8,20 @@
   <script src="./script.js" defer></script>
   <link rel="stylesheet" href="./style.css">
 
-  <title>Brew Maps</title>
+  <title>Brewery Finder</title>
 </head>
 <body>
   <header>
-    <h1>Brewmaps</h1>
+    <h1>Brewery Finder</h1>
+    <form id="search__form">
+      <input type="text" name="search__value" id="searchValue" placeholder="Search Brewery">
+      <input type="submit" placeholder="Search Brewery" id="searchSubmit">
+    </form>
   </header>
 
   <main>
-    <form id="search__form">
-      <input type="text" name="search__value" id="searchValue" placeholder="Enter State">
-      <input type="submit" placeholder="Enter State" id="searchSubmit">
-    </form>
-    <h3 class='main__h3'>Search Results:</h3>
+
+    <h2 class='main__h3'>Search Results:</h2>
     <section class="searchContainer">
 
     </section>

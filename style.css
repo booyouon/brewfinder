@@ -9,10 +9,32 @@
   display: none;
 }
 
-.searchContainer,
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
 .searchDiv {
   display: flex;
   flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 175px;
+  width: 250px;
+}
+
+.pageBtns {
+  display: flex;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
 }
