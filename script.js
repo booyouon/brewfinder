@@ -5,7 +5,6 @@
 // api address
 const header = document.querySelector("body > header");
 const searchForm = document.querySelector("#search__form");
-const headerH1 = document.querySelector("body > header > h1");
 const domain = "https://api.openbrewerydb.org/breweries";
 const microlinkDomain = "https://api.microlink.io?url=";
 const submitButton = document.querySelector("#searchSubmit");
@@ -21,7 +20,6 @@ let pageCounter;
 submitButton.addEventListener("click", (ev) => {
   header.classList.remove("headerNl");
   header.className = "headerSearch";
-  headerH1.classList.add("header__h1Search");
   searchForm.style.margin = "0";
   pageCounter = 0;
   ev.preventDefault();
@@ -87,11 +85,11 @@ const domElCreate = (data, num) => {
   const infoDiv = document.createElement("div");
   const p = document.createElement("p");
   const h3 = document.createElement("h3");
-  const brewImg = document.createElement("img");
+  const brewImg = document.createElement("div");
   infoDiv.className = "infoDiv";
   searchDiv.className = "searchDiv";
   brewImg.className = "brewImg";
-  brewImg.src = beerStockPhoto;
+  brewImg.style.backgroundImage = `url(${beerStockPhoto})`;
   h3.innerText = `${num + 1}. ${data[num].name}`;
   p.innerHTML = `${data[num].brewery_type} in ${data[num].city}, ${data[num].state}`;
   p.style.textTransform = "capitalize";
@@ -119,11 +117,14 @@ const domElCreate = (data, num) => {
       .then((resjson) => {
         // checks if the statuscode of the website is 200 and if so then the website is added
         if (resjson.statusCode === 200) {
-          console.log(resjson.data.image.url);
-          brewImg.src = resjson.data.image.url;
+          console.log(resjson.data);
           const website = document.createElement("a");
+          const description = document.createElement("p");
+          description.innerHTML = `"${resjson.data.description}"`;
+          brewImg.style.backgroundImage = `url(${resjson.data.image.url})`;
           website.innerText = h3.innerText;
           website.href = data[num].website_url;
+          infoDiv.append(description);
           h3.innerText = "";
           h3.append(website);
         }
