@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+:root {
+  --default-pm-num: 23px;
+}
+
 a {
   text-decoration: none;
 }
@@ -36,6 +40,11 @@ a {
   color: white;
 }
 
+.header__h1Search {
+  display: default;
+  margin-right: 25px;
+}
+
 #search__form {
   display: flex;
   justify-content: center;
@@ -50,15 +59,16 @@ a {
   outline: 0;
   box-shadow: none;
   font-size: 18px;
-  height: 30px;
+  height: 15px;
   width: 35vw;
   min-width: 275px;
+  padding: 13px;
 }
 
 #searchSubmit {
   border: 0;
   border-radius: 0 3px 3px 0;
-  height: 31px;
+  height: 43px;
   width: 50px;
   background-color: rgb(202, 5, 5);
   color: white;
@@ -71,7 +81,7 @@ a {
 
 /* Main */
 main {
-  padding: 0 5vw;
+  padding: 0 6vw;
 }
 
 .main__h3 {
@@ -93,11 +103,29 @@ main {
 
 .searchDiv {
   display: flex;
+  flex-direction: row;
+  padding: var(--default-pm-num);
+  border: 1px solid rgba(211, 211, 211, 0.5);
+  border-radius: 5px;
+  margin-bottom: var(--default-pm-num);
+  width: 40vw;
+}
+
+.infoDiv {
+  display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: flex-start;
   min-height: 175px;
+}
+
+.brewImg {
+  border: 0;
+  border-radius: 4px;
+  margin-right: var(--default-pm-num);
+  height: 250px;
   width: 250px;
+  object-fit: scale-down;
 }
 
 .pageBtns {
@@ -105,4 +133,30 @@ main {
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+}
+
+/* media queries */
+
+@media screen and (max-width: 1200px) {
+  .searchDiv {
+    width: 100%;
+  }
+  .header__h1 {
+    margin: 0;
+    width: auto;
+  }
+}
+@media screen and (max-width: 600px) {
+  .header__h1Search {
+    display: none;
+  }
+  .headerSearch {
+    justify-content: center;
+    align-items: center;
+  }
+  .searchDiv {
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
