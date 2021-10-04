@@ -41,11 +41,16 @@ submitButton.addEventListener("click", (ev) => {
         console.log(resjson);
         console.log(resjson.city);
         const search =
-          domain + "?by_dist=" + resjson.latitude + "," + resjson.longitude;
+          domain +
+          "?by_dist=" +
+          resjson.latitude +
+          "," +
+          resjson.longitude +
+          "&per_page=49";
         fetchBrewData(search);
       });
   } else {
-    const search = domain + "?by_city=" + submitValue;
+    const search = domain + "?by_city=" + submitValue + "&per_page=49";
     fetchBrewData(search);
   }
 });
