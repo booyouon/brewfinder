@@ -3,6 +3,9 @@
 // populate page with search inquiry
 // populate featured div with my selected breweries
 // api address
+const header = document.querySelector("body > header");
+const searchForm = document.querySelector("#search__form");
+const headerH1 = document.querySelector("body > header > h1");
 const domain = "https://api.openbrewerydb.org/breweries";
 const linkPrevDomain =
   "http://api.linkpreview.net/?key=f14050be5f1332fc8bd9e8d9f84db942&q=";
@@ -15,6 +18,10 @@ let pageCounter;
 // when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
 // a fetch request will then be sent and then the searchContainer will populate with the search query
 submitButton.addEventListener("click", (ev) => {
+  header.classList.remove("headerNl");
+  header.className = "headerSearch";
+  headerH1.style.marginRight = "25px";
+  searchForm.style.margin = "0";
   pageCounter = 0;
   ev.preventDefault();
   searchContainer.innerHTML = "";
