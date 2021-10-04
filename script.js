@@ -26,9 +26,28 @@ submitButton.addEventListener("click", (ev) => {
   searchContainer.innerHTML = "";
   pageBtns.innerHTML = "";
   searchHeading.style.display = "block";
-  const submitValue = document.querySelector("#searchValue").value;
-  const search = domain + "/search?query=" + submitValue;
-  fetchBrewData(search);
+  const submitValue = document
+    .querySelector("#searchValue")
+    .value.toLowerCase();
+  // if the submit value is left blank or current location is typed in then the visitor's current longitude and latitude is used to find the search
+  if (submitValue == "" || submitValue == "current location") {
+    fetch(
+      "https://ipgeolocation.abstractapi.com/v1/?api_key=3e7baddf86b345bfb1a91668166c6bfa"
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((resjson) => {
+        console.log(resjson);
+        console.log(resjson.city);
+        const search =
+          domain + "?by_dist=" + resjson.latitude + "," + resjson.longitude;
+        fetchBrewData(search);
+      });
+  } else {
+    const search = domain + "?by_city=" + submitValue;
+    fetchBrewData(search);
+  }
 });
 
 // function fetchData is used to send the get the api request, also contains domUpdate in order to update the DOM content
@@ -45,8 +64,8 @@ const fetchBrewData = (domain) =>
         // code for adding the prevBtn and nextBtn elements
         const prevBtn = document.createElement("button");
         const nextBtn = document.createElement("button");
-        prevBtn.innerText = "previous";
-        nextBtn.innerText = "next";
+        prevBtn.innerHTML = `<span class="material-icons">chevron_left</span>`;
+        nextBtn.innerHTML = `<span class="material-icons">chevron_right</span>`;
         prevBtn.className = "previous";
         nextBtn.className = "next";
         pageBtns.append(prevBtn, nextBtn);
@@ -90,6 +109,7 @@ const domElCreate = (data, num) => {
   searchDiv.className = "searchDiv";
   brewImg.className = "brewImg";
   brewImg.style.backgroundImage = `url(${beerStockPhoto})`;
+  h3.className = "infoDiv__H3";
   h3.innerText = `${num + 1}. ${data[num].name}`;
   p.innerHTML = `${data[num].brewery_type} in ${data[num].city}, ${data[num].state}`;
   p.style.textTransform = "capitalize";
@@ -104,7 +124,7 @@ const domElCreate = (data, num) => {
   }
   if (data[num].phone) {
     const phone = document.createElement("a");
-    phone.innerText = formatPhone(data[num].phone);
+    phone.innerHTML = formatPhone(data[num].phone);
     phone.href = `tel:${data[num].phone}`;
     infoDiv.append(phone);
   }
@@ -117,9 +137,11 @@ const domElCreate = (data, num) => {
       .then((resjson) => {
         // checks if the statuscode of the website is 200 and if so then the website is added
         if (resjson.statusCode === 200) {
-          console.log(resjson.data);
+          console.log(resjson);
           const website = document.createElement("a");
           const description = document.createElement("p");
+          website.className = "infoDiv__website";
+          description.className = "infoDiv__description";
           description.innerHTML = `"${resjson.data.description}"`;
           brewImg.style.backgroundImage = `url(${resjson.data.image.url})`;
           website.innerText = h3.innerText;
@@ -132,12 +154,6 @@ const domElCreate = (data, num) => {
       .catch((e) => {
         console.log(`Error: ${e}`);
       });
-    // const a = document.createElement("a");
-    // a.innerText = `${num + 1}. ${data[num].name}`;
-    // a.href = "#";
-    // searchDiv.append(a);
-    // a.addEventListener("click", () => {
-    // });
   }
 };
 // function to format each phone number input
