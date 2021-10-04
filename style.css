@@ -2,18 +2,57 @@
   padding: 0;
   margin: 0;
 }
-/* Main */
-.main__h3,
-.previous,
-.next {
-  display: none;
-}
+
+/* Header */
 
 header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: gray;
+  padding: 25px 0;
+}
+
+#search__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#searchValue {
+  margin: 0;
+  border: 0;
+  border-radius: 3px 0 0 3px;
+  outline: 0;
+  box-shadow: none;
+  font-size: 18px;
+  height: 30px;
+  width: 35vw;
+  min-width: 275px;
+}
+
+#searchSubmit {
+  border: 0;
+  border-radius: 0 3px 3px 0;
+  height: 31px;
+  width: 50px;
+}
+
+/* Main */
+main {
+  padding: 0 5vw;
+}
+
+.main__h3 {
+  margin: 25px 0;
+}
+
+.main__h3,
+.previous,
+.next {
+  display: none;
 }
 
 .searchContainer {

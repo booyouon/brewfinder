@@ -114,9 +114,11 @@ const domElCreate = (data, num) => {
     website.innerText = data[num].website_url;
     website.href = data[num].website_url;
     searchDiv.append(website);
+    h3.innerText = "";
     const a = document.createElement("a");
-    a.innerText = "More Info";
-    searchDiv.append(a);
+    a.innerText = `${num + 1}. ${data[num].name}`;
+    a.href = "#";
+    h3.append(a);
     a.addEventListener("click", () => {
       fetchLinkPreview(linkPrevDomain + data[num].website_url);
     });

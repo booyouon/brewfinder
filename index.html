@@ -7,15 +7,21 @@
 
   <script src="./script.js" defer></script>
   <link rel="stylesheet" href="./style.css">
+  <!-- Link to google font's material icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
   <title>Brewery Finder</title>
 </head>
 <body>
   <header>
-    <h1>Brewery Finder</h1>
+    <h1><a href="">Brewery Finder</a></h1>
     <form id="search__form">
       <input type="text" name="search__value" id="searchValue" placeholder="Search Brewery">
-      <input type="submit" placeholder="Search Brewery" id="searchSubmit">
+      <button id="searchSubmit"><span class="material-icons">
+        search
+        </span>
+        </button>
     </form>
   </header>
 
