@@ -3,6 +3,7 @@
 // populate page with search inquiry
 // populate featured div with my selected breweries
 // api address
+const apiKey = config.geoKey;
 const header = document.querySelector("body > header");
 const searchForm = document.querySelector("#search__form");
 const domain = "https://api.openbrewerydb.org/breweries";
@@ -31,9 +32,7 @@ submitButton.addEventListener("click", (ev) => {
     .value.toLowerCase();
   // if the submit value is left blank or current location is typed in then the visitor's current longitude and latitude is used to find the search
   if (submitValue == "" || submitValue == "current location") {
-    fetch(
-      "https://ipgeolocation.abstractapi.com/v1/?api_key=3e7baddf86b345bfb1a91668166c6bfa"
-    )
+    fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${apiKey}`)
       .then((res) => {
         return res.json();
       })
