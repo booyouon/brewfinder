@@ -45,11 +45,11 @@ submitButton.addEventListener("click", (ev) => {
           resjson.latitude +
           "," +
           resjson.longitude +
-          "&per_page=49";
+          "&per_page=12";
         fetchBrewData(search);
       });
   } else {
-    const search = domain + "?by_city=" + submitValue + "&per_page=49";
+    const search = domain + "?by_city=" + submitValue + "&per_page=12";
     fetchBrewData(search);
   }
 });
