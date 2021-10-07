@@ -155,6 +155,25 @@ microlink:
 
 ## Project Schedule
 
+| Date   | Description                                           |
+| ------ | ----------------------------------------------------- |
+| Oct 1  | Readme draft, Project Approval, Wireframes, First API |
+| ------ | ----------------------------------------------------- |
+| Oct 2  | Project Approval + Pseudocode + Boilerplate           |
+| ------ | ----------------------------------------------------- |
+| Oct 3  | API set up on Postman + fetch work on JS              |
+| ------ | ----------------------------------------------------- |
+| Oct 4  | Finish MVP + Misc code + styling + second API         |
+| ------ | ----------------------------------------------------- |
+| Oct 5  | Third Geo API                                         |
+| ------ | ----------------------------------------------------- |
+| Oct 6  | Footer + Deployment                                   |
+| ------ | ----------------------------------------------------- |
+| Oct 7  | Clean up code + Prepare for presentations             |
+| ------ | ----------------------------------------------------- |
+| Oct 8  | Presentations                                         |
+| ------ | ----------------------------------------------------- |
+
 ## Timeframes
 
 ## Code Snippet
