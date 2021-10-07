@@ -151,7 +151,7 @@ microlink:
 - [x] Use a second API
 - [x] Add a loading animations
 - [ ] Use a map API to display the searches
-- [ ] Apply CRUD by either adding a reviews page or a way users can add their own breweries
+- [x] Make a favorites section using localStorage
 
 ## Project Schedule
 

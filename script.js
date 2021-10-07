@@ -13,6 +13,7 @@ const searchHeading = document.querySelector(".main__h3");
 const searchContainer = document.querySelector(".searchContainer");
 const pageBtns = document.querySelector(".pageBtns");
 const loadingContainer = document.querySelector(".loadingContainer");
+const favoritesSection = document.querySelector(".favorites");
 const favorites__container = document.querySelector(".favorites__container");
 // credit to Josh Olalde on unsplash for the photo
 const beerStockPhoto =
@@ -22,6 +23,7 @@ let pageCounter;
 // when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
 // a fetch request will then be sent and then the searchContainer will populate with the search query
 submitButton.addEventListener("click", (ev) => {
+  favoritesSection.style.display = "none";
   loadingContainer.style.display = "flex";
   setTimeout(() => {
     loadingContainer.style.display = "none";
@@ -140,9 +142,14 @@ const domElCreate = (data, num) => {
   infoDiv.append(h3, p);
   heartIcon.addEventListener("click", () => {
     const heartValue = heartIcon.value;
-    localStorage.setItem(heartValue, heartValue);
-    console.log(localStorage.getItem(heartValue));
-    heartIcon.style.color = "red";
+    if (heartIcon.style.color == "red") {
+      localStorage.removeItem(heartValue);
+      heartIcon.style.color = "white";
+    } else {
+      localStorage.setItem(heartValue, heartValue);
+      console.log(localStorage.getItem(heartValue));
+      heartIcon.style.color = "red";
+    }
   });
   if (data[num].street) {
     const address = document.createElement("address");
@@ -224,7 +231,7 @@ const domUpdate = (resData) => {
 // each favbtn is assigned a value equal to the brewery id on openbrewerydb = DONE
 // function runs which saves that brewery id into localStorage = DONE
 // favorites page fetches info from openbreweryDB looping through every id from the localStorage = DONE
-// delete btn is generated on each instance which has an eventlistener when clicked will localStorage.removeItem(id)
+// delete btn is generated on each instance which has an eventlistener when clicked will localStorage.removeItem(id) = DONE
 
 for (let i = 0; i < localStorage.length; i++) {
   console.log(domain + "/" + Object.keys(localStorage)[i]);
@@ -239,17 +246,27 @@ for (let i = 0; i < localStorage.length; i++) {
       const p = document.createElement("p");
       const h3 = document.createElement("h3");
       const brewImg = document.createElement("div");
+      const trashIcon = document.createElement("span");
       infoDiv.className = "infoDiv";
       searchDiv.className = "searchDiv";
       brewImg.className = "brewImg";
       brewImg.style.backgroundImage = `url(${beerStockPhoto})`;
+      trashIcon.innerText = "delete";
+      trashIcon.classList.add("material-icons", "brewImg__trashIcon");
+      trashIcon.value = resjson.id;
       h3.className = "infoDiv__H3";
       h3.innerText = resjson.name;
       p.innerHTML = `${resjson.brewery_type} in ${resjson.city}, ${resjson.state}`;
       p.style.textTransform = "capitalize";
       favorites__container.append(searchDiv);
       searchDiv.append(brewImg, infoDiv);
+      brewImg.append(trashIcon);
       infoDiv.append(h3, p);
+      trashIcon.addEventListener("click", () => {
+        const trashValue = trashIcon.value;
+        localStorage.removeItem(trashValue);
+        location.reload();
+      });
       if (resjson.street) {
         const address = document.createElement("address");
         address.innerHTML = `${resjson.street}, ${resjson.state}, ${resjson.state} ${resjson.postal_code}`;
@@ -268,7 +285,6 @@ for (let i = 0; i < localStorage.length; i++) {
             return res.json();
           })
           .then((resjson) => {
-            console.log(resjson);
             // checks if the statuscode of the website is 200 and if so then the website is added
             if (
               resjson.statusCode === 200 &&

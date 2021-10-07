@@ -198,16 +198,23 @@ main {
   background-repeat: no-repeat;
 }
 
-.brewImg__heartIcon {
+.brewImg__heartIcon,
+.brewImg__trashIcon {
   display: none !important;
   opacity: 0.6;
   font-size: 60px !important;
   color: white;
 }
 
-.brewImg:hover .brewImg__heartIcon {
+.brewImg:hover .brewImg__heartIcon,
+.brewImg:hover .brewImg__trashIcon {
   display: block !important;
   cursor: pointer;
+}
+
+.brewImg__trashIcon:hover,
+.brewImg__heartIcon:hover {
+  opacity: 1;
 }
 
 .pageBtns {
