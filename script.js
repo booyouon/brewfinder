@@ -15,10 +15,101 @@ const pageBtns = document.querySelector(".pageBtns");
 const loadingContainer = document.querySelector(".loadingContainer");
 const favoritesSection = document.querySelector(".favorites");
 const favorites__container = document.querySelector(".favorites__container");
+const favorites__nothing = document.querySelector(".favorites__nothing");
 // credit to Josh Olalde on unsplash for the photo
 const beerStockPhoto =
   "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80";
 let pageCounter;
+
+if (Object.keys(localStorage).length > 0) {
+  favorites__nothing.style.display = "none";
+}
+
+// everytime a brewery favorite button is clicked, that brewery is added to favorites
+// make a favorites button when each brewery is generated = DONE
+// addeventlistener that waits until the favbtn is clicked = DONE
+// each favbtn is assigned a value equal to the brewery id on openbrewerydb = DONE
+// function runs which saves that brewery id into localStorage = DONE
+// favorites page fetches info from openbreweryDB looping through every id from the localStorage = DONE
+// delete btn is generated on each instance which has an eventlistener when clicked will localStorage.removeItem(id) = DONE
+
+for (let i = 0; i < localStorage.length; i++) {
+  console.log(domain + "/" + Object.keys(localStorage)[i]);
+  fetch(domain + "/" + Object.keys(localStorage)[i])
+    .then((res) => {
+      return res.json();
+    })
+    .then((resjson) => {
+      console.log(resjson);
+      const searchDiv = document.createElement("div");
+      const infoDiv = document.createElement("div");
+      const p = document.createElement("p");
+      const h3 = document.createElement("h3");
+      const brewImg = document.createElement("div");
+      const trashIcon = document.createElement("span");
+      infoDiv.className = "infoDiv";
+      searchDiv.className = "searchDiv";
+      brewImg.className = "brewImg";
+      brewImg.style.backgroundImage = `url(${beerStockPhoto})`;
+      trashIcon.innerText = "delete";
+      trashIcon.classList.add("material-icons", "brewImg__trashIcon");
+      trashIcon.value = resjson.id;
+      h3.className = "infoDiv__H3";
+      h3.innerText = resjson.name;
+      p.innerHTML = `${resjson.brewery_type} in ${resjson.city}, ${resjson.state}`;
+      p.style.textTransform = "capitalize";
+      favorites__container.append(searchDiv);
+      searchDiv.append(brewImg, infoDiv);
+      brewImg.append(trashIcon);
+      infoDiv.append(h3, p);
+      trashIcon.addEventListener("click", () => {
+        const trashValue = trashIcon.value;
+        localStorage.removeItem(trashValue);
+        location.reload();
+      });
+      if (resjson.street) {
+        const address = document.createElement("address");
+        address.innerHTML = `${resjson.street}, ${resjson.state}, ${resjson.state} ${resjson.postal_code}`;
+        infoDiv.append(address);
+      }
+      if (resjson.phone) {
+        const phone = document.createElement("a");
+        phone.innerHTML = formatPhone(resjson.phone);
+        phone.href = `tel:${resjson.phone}`;
+        infoDiv.append(phone);
+      }
+      if (resjson.website_url) {
+        // fetches website data using the microlink API
+        fetch(microlinkDomain + resjson.website_url)
+          .then((res) => {
+            return res.json();
+          })
+          .then((resjson) => {
+            // checks if the statuscode of the website is 200 and if so then the website is added
+            if (
+              resjson.statusCode === 200 &&
+              resjson.data.image !== null &&
+              resjson.data.image.height > 1
+            ) {
+              const website = document.createElement("a");
+              const description = document.createElement("p");
+              website.className = "infoDiv__website";
+              description.className = "infoDiv__description";
+              description.innerHTML = `"${resjson.data.description}"`;
+              brewImg.style.backgroundImage = `url(${resjson.data.image.url})`;
+              website.innerText = h3.innerText;
+              website.href = resjson.website_url;
+              infoDiv.append(description);
+              h3.innerText = "";
+              h3.append(website);
+            }
+          })
+          .catch((e) => {
+            console.log(`Error: ${e}`);
+          });
+      }
+    });
+}
 
 // when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
 // a fetch request will then be sent and then the searchContainer will populate with the search query
@@ -223,90 +314,3 @@ const domUpdate = (resData) => {
     }
   }
 };
-
-// everytime a brewery favorite button is clicked, that brewery is added to favorites
-
-// make a favorites button when each brewery is generated = DONE
-// addeventlistener that waits until the favbtn is clicked = DONE
-// each favbtn is assigned a value equal to the brewery id on openbrewerydb = DONE
-// function runs which saves that brewery id into localStorage = DONE
-// favorites page fetches info from openbreweryDB looping through every id from the localStorage = DONE
-// delete btn is generated on each instance which has an eventlistener when clicked will localStorage.removeItem(id) = DONE
-
-for (let i = 0; i < localStorage.length; i++) {
-  console.log(domain + "/" + Object.keys(localStorage)[i]);
-  fetch(domain + "/" + Object.keys(localStorage)[i])
-    .then((res) => {
-      return res.json();
-    })
-    .then((resjson) => {
-      console.log(resjson);
-      const searchDiv = document.createElement("div");
-      const infoDiv = document.createElement("div");
-      const p = document.createElement("p");
-      const h3 = document.createElement("h3");
-      const brewImg = document.createElement("div");
-      const trashIcon = document.createElement("span");
-      infoDiv.className = "infoDiv";
-      searchDiv.className = "searchDiv";
-      brewImg.className = "brewImg";
-      brewImg.style.backgroundImage = `url(${beerStockPhoto})`;
-      trashIcon.innerText = "delete";
-      trashIcon.classList.add("material-icons", "brewImg__trashIcon");
-      trashIcon.value = resjson.id;
-      h3.className = "infoDiv__H3";
-      h3.innerText = resjson.name;
-      p.innerHTML = `${resjson.brewery_type} in ${resjson.city}, ${resjson.state}`;
-      p.style.textTransform = "capitalize";
-      favorites__container.append(searchDiv);
-      searchDiv.append(brewImg, infoDiv);
-      brewImg.append(trashIcon);
-      infoDiv.append(h3, p);
-      trashIcon.addEventListener("click", () => {
-        const trashValue = trashIcon.value;
-        localStorage.removeItem(trashValue);
-        location.reload();
-      });
-      if (resjson.street) {
-        const address = document.createElement("address");
-        address.innerHTML = `${resjson.street}, ${resjson.state}, ${resjson.state} ${resjson.postal_code}`;
-        infoDiv.append(address);
-      }
-      if (resjson.phone) {
-        const phone = document.createElement("a");
-        phone.innerHTML = formatPhone(resjson.phone);
-        phone.href = `tel:${resjson.phone}`;
-        infoDiv.append(phone);
-      }
-      if (resjson.website_url) {
-        // fetches website data using the microlink API
-        fetch(microlinkDomain + resjson.website_url)
-          .then((res) => {
-            return res.json();
-          })
-          .then((resjson) => {
-            // checks if the statuscode of the website is 200 and if so then the website is added
-            if (
-              resjson.statusCode === 200 &&
-              resjson.data.image !== null &&
-              resjson.data.image.height > 1
-            ) {
-              const website = document.createElement("a");
-              const description = document.createElement("p");
-              website.className = "infoDiv__website";
-              description.className = "infoDiv__description";
-              description.innerHTML = `"${resjson.data.description}"`;
-              brewImg.style.backgroundImage = `url(${resjson.data.image.url})`;
-              website.innerText = h3.innerText;
-              website.href = resjson.website_url;
-              infoDiv.append(description);
-              h3.innerText = "";
-              h3.append(website);
-            }
-          })
-          .catch((e) => {
-            console.log(`Error: ${e}`);
-          });
-      }
-    });
-}

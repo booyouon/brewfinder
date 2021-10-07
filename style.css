@@ -264,6 +264,16 @@ footer {
   height: 100%;
   width: 100%;
 }
+
+footer a {
+  font-family: "Bonheur Royale";
+  text-decoration: none;
+  color: black;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
 /* media queries */
 
 @media screen and (max-width: 1200px) {

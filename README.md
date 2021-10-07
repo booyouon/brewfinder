@@ -155,26 +155,28 @@ microlink:
 
 ## Project Schedule
 
-| Date   | Description                                           |
-| ------ | ----------------------------------------------------- |
-| Oct 1  | Readme draft, Project Approval, Wireframes, First API |
-| ------ | ----------------------------------------------------- |
-| Oct 2  | Project Approval + Pseudocode + Boilerplate           |
-| ------ | ----------------------------------------------------- |
-| Oct 3  | API set up on Postman + fetch work on JS              |
-| ------ | ----------------------------------------------------- |
-| Oct 4  | Finish MVP + Misc code + styling + second API         |
-| ------ | ----------------------------------------------------- |
-| Oct 5  | Third Geo API                                         |
-| ------ | ----------------------------------------------------- |
-| Oct 6  | Footer + Deployment                                   |
-| ------ | ----------------------------------------------------- |
-| Oct 7  | Clean up code + Prepare for presentations             |
-| ------ | ----------------------------------------------------- |
-| Oct 8  | Presentations                                         |
-| ------ | ----------------------------------------------------- |
+| Date | Description |
+| Oct 1 | Readme draft, Project Approval, Wireframes, First API |
+| Oct 2 | Project Approval + Pseudocode + Boilerplate |
+| Oct 3 | API set up on Postman + fetch work on JS |
+| Oct 4 | Finish MVP + Misc code + styling + second API |
+| Oct 5 | Third Geo API |
+| Oct 6 | Footer + Deployment |
+| Oct 7 | Clean up code + Prepare for presentations |
+| Oct 8 | Presentations |
 
 ## Timeframes
+
+| Component | EST | Actual Time |
+| HTML | 2 hr | <1 hr |
+| CSS | 3 hr | Too much time (probably 6 hr) |
+| Pseudocode | 1 hr | 1 hr |
+| JS for OpenbreweryDB API | 3 hr | 4 hr |
+| JS for Geo API | 3 hr | < 1 hr |
+| JS for Microlink API | 3 hr | 3 hr |
+| Rest of JS | 3 hr | 1.5 hr |
+| Other (Cleaning code, deleting console.logs, etc) | -- | .5 hr |
+| Total | 18 hr | 18 hr |
 
 ## Code Snippet
 
