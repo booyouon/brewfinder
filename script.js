@@ -12,6 +12,7 @@ const submitButton = document.querySelector("#searchSubmit");
 const searchHeading = document.querySelector(".main__h3");
 const searchContainer = document.querySelector(".searchContainer");
 const pageBtns = document.querySelector(".pageBtns");
+const loadingContainer = document.querySelector(".loadingContainer");
 // credit to Josh Olalde on unsplash for the photo
 const beerStockPhoto =
   "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80";
@@ -20,6 +21,10 @@ let pageCounter;
 // when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
 // a fetch request will then be sent and then the searchContainer will populate with the search query
 submitButton.addEventListener("click", (ev) => {
+  loadingContainer.style.display = "flex";
+  setTimeout(() => {
+    loadingContainer.style.display = "none";
+  }, 2500);
   header.classList.remove("headerNl");
   header.className = "headerSearch";
   searchForm.style.margin = "0";
@@ -192,3 +197,11 @@ const domUpdate = (resData) => {
     }
   }
 };
+
+// everytime a brewery favorite button is clicked, that brewery is added to favorites
+// make a favorites button when each brewery is generated
+// addeventlistener that waits until the favbtn is clicked
+// each favbtn is assigned a value equal to the brewery id on openbrewerydb
+// function runs which saves that brewery id into localStorage
+// favorites page fetches info from openbreweryDB looping through every id from the localStorage
+// delete btn is generated on each instance which has an eventlistener when clicked will localStorage.removeItem(id)
