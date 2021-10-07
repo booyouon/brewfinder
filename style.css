@@ -6,6 +6,11 @@
   line-height: 1.25;
 }
 
+body {
+  background-color: rgb(255, 255, 255);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 :root {
   --default-pm-num: 23px;
 }
@@ -23,7 +28,7 @@ a {
   align-items: center;
   background-color: gray;
   padding: 25px 0;
-  height: 500px;
+  height: 750px;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.unsplash.com/photo-1587582816472-81e94768469a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80");
   background-size: cover;
@@ -183,7 +188,14 @@ main {
   justify-content: center;
   align-items: center;
 }
-
+/* footer */
+footer {
+  margin: 25px 0;
+  padding: 25px 0;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
 /* media queries */
 
 @media screen and (max-width: 1200px) {
