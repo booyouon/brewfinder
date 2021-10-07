@@ -156,6 +156,7 @@ microlink:
 ## Project Schedule
 
 | Date | Description |
+| | |
 | Oct 1 | Readme draft, Project Approval, Wireframes, First API |
 | Oct 2 | Project Approval + Pseudocode + Boilerplate |
 | Oct 3 | API set up on Postman + fetch work on JS |
