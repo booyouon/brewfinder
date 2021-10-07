@@ -174,6 +174,8 @@ microlink:
 | Oct 8  | Presentations                                         |
 | ------ | ----------------------------------------------------- |
 
+## Timeframes
+
 ## Code Snippet
 
 I like this piece of code because it is the only piece of code in my project that most closely deals with putting algo's into real world practice which I feel like is kinda cool. What it does though is it formats phone numbers so that they don't look ugly. Does not have anything to do with breweries lol.

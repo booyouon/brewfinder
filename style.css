@@ -95,6 +95,19 @@ main {
   margin: 25px 0;
 }
 
+.favorites {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.favorites__h2 {
+  color: rgb(202, 5, 5);
+  margin-bottom: 25px;
+}
+
 .next {
   border: 0;
   border-radius: 0 5px 5px 0;
@@ -128,7 +141,8 @@ main {
   display: none;
 }
 
-.searchContainer {
+.searchContainer,
+.favorites__container {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -172,13 +186,28 @@ main {
 }
 
 .brewImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 0;
   border-radius: 4px;
   margin-right: var(--default-pm-num);
   min-height: 250px;
   min-width: 250px;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+}
+
+.brewImg__heartIcon {
+  display: none !important;
+  opacity: 0.6;
+  font-size: 60px !important;
+  color: white;
+}
+
+.brewImg:hover .brewImg__heartIcon {
+  display: block !important;
+  cursor: pointer;
 }
 
 .pageBtns {
@@ -197,7 +226,7 @@ main {
   background-color: white;
   opacity: 0.8;
   background-color: #ccc;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0px;
