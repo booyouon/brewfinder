@@ -38,8 +38,6 @@ submitButton.addEventListener("click", (ev) => {
         return res.json();
       })
       .then((resjson) => {
-        console.log(resjson);
-        console.log(resjson.city);
         const search =
           domain +
           "?by_dist=" +
@@ -141,8 +139,11 @@ const domElCreate = (data, num) => {
       })
       .then((resjson) => {
         // checks if the statuscode of the website is 200 and if so then the website is added
-        if (resjson.statusCode === 200 && resjson.data.image !== null) {
-          console.log(resjson);
+        if (
+          resjson.statusCode === 200 &&
+          resjson.data.image !== null &&
+          resjson.data.image.height > 1
+        ) {
           const website = document.createElement("a");
           const description = document.createElement("p");
           website.className = "infoDiv__website";
