@@ -279,6 +279,7 @@ footer a {
   /* font-family: "Bonheur Royale"; */
   text-decoration: none;
   color: rgb(92, 92, 92);
+  margin-right: 30px;
 }
 
 footer a:hover {
