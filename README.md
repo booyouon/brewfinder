@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Brew finder is an application used to find breweries based on your search!
+Brew finder is an application used to find breweries based on your search! [Live Site](https://booyouon.github.io/brewfinder/)
 
 ## API sample
 
@@ -143,14 +143,14 @@ microlink:
 - [x] Use an API to populate the search query
 - [x] Render the search onto the page
 - [x] Responsize style with Flexbox and media queries
-- [ ] Deploy Site
+- [x] Deploy Site
 
 ## Post-MVP
 
 - [x] Add images to each search
 - [x] Use a second API
 - [x] Add a loading animations
-- [ ] Use a map API to display the searches
+- [x] Use a map API to display the searches
 - [x] Make a favorites section using localStorage
 
 ## Project Schedule
