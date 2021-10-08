@@ -270,7 +270,7 @@ main {
 footer {
   margin: 25px 0;
   padding: 25px 0;
-  text-align: center;
+  text-align: right;
   height: 100%;
   width: 100%;
 }
@@ -278,7 +278,7 @@ footer {
 footer a {
   /* font-family: "Bonheur Royale"; */
   text-decoration: none;
-  color: black;
+  color: rgb(92, 92, 92);
 }
 
 footer a:hover {

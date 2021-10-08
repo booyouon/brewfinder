@@ -1,8 +1,5 @@
-// fetch from api
-// send api response based on search value
-// populate page with search inquiry
-// populate featured div with my selected breweries
-// api address
+// ==== Global Variables ====
+
 const apiKey = config.geoKey;
 const header = document.querySelector("body > header");
 const searchForm = document.querySelector("#search__form");
@@ -18,15 +15,16 @@ const favorites__container = document.querySelector(".favorites__container");
 const favorites__nothing = document.querySelector(".favorites__nothing");
 const mapDiv = document.querySelector(".map");
 let mapItems = [];
-// credit to Josh Olalde on unsplash for the photo
+
+// Credit to Josh Olalde on unsplash for the photo!
 const beerStockPhoto =
   "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80";
 let pageCounter;
 
-// Google maps api dynamic loading
+// ==== Google Maps Javascript API (dynamic loading) ====
 
 // Create the script tag, set the appropriate attributes
-var script = document.createElement("script");
+const script = document.createElement("script");
 script.src = `https://maps.googleapis.com/maps/api/js?key=${config.googleKey}&callback=initMap`;
 script.async = true;
 
@@ -42,14 +40,20 @@ if (Object.keys(localStorage).length > 0) {
   favorites__nothing.style.display = "none";
 }
 
-// creates the map on the search results
+// Function initMap renders a map on the "Search Results" section
 const initMap = (latitude, longitude, array) => {
+  // Options sets the default behaviors of the rendered map
   const options = {
+    // Center takes the latitude and longitude parameters and sets them as the initial center of the map
+    // When initMap is called back the first brewery search result's lat + lng is used for center
     center: { lat: latitude, lng: longitude },
+    // Zoom sets the default map zoom
     zoom: 12,
   };
+  // Renders the map onto the map div in index.html with the settings set by the options variable
   map = new google.maps.Map(mapDiv, options);
 
+  // Loops through the array parameter and creates a pin for each coordinate
   for (let i = 0; i < array.length; i++) {
     const marker = addMarker(
       Number(array[i].latitude),
@@ -65,7 +69,8 @@ const initMap = (latitude, longitude, array) => {
   }
 };
 
-// function that creates a marker based on latitude and longitude
+// Function that creates a marker based on latitude and longitude
+// Callback is used in initMap
 const addMarker = (lat, lng) => {
   return (marker = new google.maps.Marker({
     position: { lat: lat, lng: lng },
@@ -73,20 +78,26 @@ const addMarker = (lat, lng) => {
   }));
 };
 
-//function that assigns text to each map pin
+// Function that assigns text/content to each map pin
+// Callback is used in initMap
 const addDetailWindow = (content) => {
   return new google.maps.InfoWindow({
     content: `<h2>${content}</h2>`,
   });
 };
 
-// everytime a brewery favorite button is clicked, that brewery is added to favorites
-// make a favorites button when each brewery is generated = DONE
-// addeventlistener that waits until the favbtn is clicked = DONE
-// each favbtn is assigned a value equal to the brewery id on openbrewerydb = DONE
-// function runs which saves that brewery id into localStorage = DONE
-// favorites page fetches info from openbreweryDB looping through every id from the localStorage = DONE
-// delete btn is generated on each instance which has an eventlistener when clicked will localStorage.removeItem(id) = DONE
+// ==== Favorites ====
+
+// Pseudocode (Logic is spread throughout the page):
+// Everytime a brewery heartIcon is clicked, that brewery is added to localStorage:
+// A favorites button is created when each brewery search div is rendered
+// Each favorites button is assigned the brewery name as their value
+// There is an EventListener that awaits for a click
+// When clicked the brewery name is saved into localStorage
+// Whenever we go to our homepage, the favorites section fetches info from openbreweryDB
+// The values in localStorage are looped through and rendered onto the favorites section
+// A delete btn is created when each favorited brewery is created
+// There is an EventListener when clicked will localStorage.removeItem(name)
 
 for (let i = 0; i < localStorage.length; i++) {
   fetch(domain + "/" + Object.keys(localStorage)[i])
@@ -115,6 +126,7 @@ for (let i = 0; i < localStorage.length; i++) {
       searchDiv.append(brewImg, infoDiv);
       brewImg.append(trashIcon);
       infoDiv.append(h3, p);
+      // EventListener which removes the target localStorage value then refreshes the page
       trashIcon.addEventListener("click", () => {
         const trashValue = trashIcon.value;
         localStorage.removeItem(trashValue);
@@ -131,14 +143,15 @@ for (let i = 0; i < localStorage.length; i++) {
         phone.href = `tel:${resjson.phone}`;
         infoDiv.append(phone);
       }
+      // If the fetched data from openbreweryDB has a website link then we are able to make a fetch request to the microlink API in order to get and add more information into the search item
       if (resjson.website_url) {
-        // fetches website data using the microlink API
+        // Fetches website data using the microlink API
         fetch(microlinkDomain + resjson.website_url)
           .then((res) => {
             return res.json();
           })
           .then((resjson) => {
-            // checks if the statuscode of the website is 200 and if so then the website is added
+            // Check if the statuscode of the website is 200 and if so then the website is added
             if (
               resjson.statusCode === 200 &&
               resjson.data.image !== null &&
@@ -164,13 +177,18 @@ for (let i = 0; i < localStorage.length; i++) {
     });
 }
 
-// when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
+// ==== Brewery Search ====
+
+// When the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
 // a fetch request will then be sent and then the searchContainer will populate with the search query
 submitButton.addEventListener("click", (ev) => {
+  // The mapItems array is cleared every search and will later contain all the coordinates to generate the map markers
   mapItems = [];
+  // Throughout this code block there are updates to the styling of elements in order to dynamically change the page without having to create a separate HTML file
   mapDiv.style.display = "block";
   favoritesSection.style.display = "none";
   loadingContainer.style.display = "flex";
+  // Hides the loading icon after 2 seconds
   setTimeout(() => {
     loadingContainer.style.display = "none";
   }, 2000);
@@ -185,7 +203,7 @@ submitButton.addEventListener("click", (ev) => {
   const submitValue = document
     .querySelector("#searchValue")
     .value.toLowerCase();
-  // if the submit value is left blank or current location is typed in then the visitor's current longitude and latitude is used to find the search
+  // If the submit value is left blank or current location is typed in then the geolocation API is fetched and the visitor's current longitude and latitude is used to generate the search
   if (submitValue == "" || submitValue == "current location") {
     fetch(`https://ipgeolocation.abstractapi.com/v1/?api_key=${apiKey}`)
       .then((res) => {
@@ -210,7 +228,7 @@ submitButton.addEventListener("click", (ev) => {
   }
 });
 
-// function fetchData is used to send the get the api request, also contains domUpdate in order to update the DOM content
+// Function fetchData is used to send the specified API request, also contains domUpdate in order to update the DOM content
 const fetchBrewData = (domain) =>
   fetch(domain)
     .then((res) => {
@@ -218,10 +236,10 @@ const fetchBrewData = (domain) =>
     })
     .then((resjson) => {
       domUpdate(resjson);
-      // loops through resjson to check which breweries have a latitude
+      // Loops through resjson to check which breweries have a latitude
       for (let i = 0; i < resjson.length; i++) {
         if (resjson[i].latitude !== null) {
-          //pushes all breweries with latitude into mapItems array
+          // Pushes all breweries with latitude into mapItems array
           mapItems.push({
             name: resjson[i].name,
             latitude: resjson[i].latitude,
@@ -235,9 +253,9 @@ const fetchBrewData = (domain) =>
         Number(mapItems[0].longitude),
         mapItems
       );
-      // If api content that comes back is greater than 10, then the nextBtn and prevBtn allow to dynamically update the page
+      // If API content that comes back is greater than 10, then the nextBtn and prevBtn allow to dynamically look through the search results in multiple pages
       if (resjson.length > 10) {
-        // code for adding the prevBtn and nextBtn elements
+        // Adds the prevBtn and nextBtn elements onto the page
         const prevBtn = document.createElement("button");
         const nextBtn = document.createElement("button");
         prevBtn.innerHTML = `<span class="material-icons">chevron_left</span>`;
@@ -247,7 +265,7 @@ const fetchBrewData = (domain) =>
         pageBtns.append(prevBtn, nextBtn);
         nextBtn.style.display = "block";
 
-        //nextBtn event listener
+        // nextBtn eventListener
         nextBtn.addEventListener("click", () => {
           loadingContainer.style.display = "flex";
           setTimeout(() => {
@@ -262,7 +280,7 @@ const fetchBrewData = (domain) =>
           }
         });
 
-        //prevBtn event listener
+        //prevBtn eventListener
         prevBtn.addEventListener("click", () => {
           searchContainer.innerHTML = "";
           pageCounter--;
@@ -278,7 +296,7 @@ const fetchBrewData = (domain) =>
       console.log(`Error: ${e}`);
     });
 
-// domElCreate is used to specify what will be created inside domUpdate
+// Function domElCreate is used to specify what will be created inside domUpdate
 const domElCreate = (data, num) => {
   const searchDiv = document.createElement("div");
   const infoDiv = document.createElement("div");
@@ -293,7 +311,7 @@ const domElCreate = (data, num) => {
   heartIcon.innerText = "favorite";
   heartIcon.classList.add("material-icons", "brewImg__heartIcon");
   heartIcon.value = data[num].id;
-  // checks local storage to see if that brewery item already has been liked and if so turns the heart red
+  // Checks localStorage to see if that brewery item already has been liked and if so turns the heart red
   if (Object.keys(localStorage).includes(heartIcon.value)) {
     heartIcon.style.color = "red";
   }
@@ -305,6 +323,7 @@ const domElCreate = (data, num) => {
   searchDiv.append(brewImg, infoDiv);
   brewImg.append(heartIcon);
   infoDiv.append(h3, p);
+  // EventListener which either removes the brewery from the localStorage if the heart is red, else the brewery is added to localStorage and the heart becomes red
   heartIcon.addEventListener("click", () => {
     const heartValue = heartIcon.value;
     if (heartIcon.style.color == "red") {
@@ -327,13 +346,13 @@ const domElCreate = (data, num) => {
     infoDiv.append(phone);
   }
   if (data[num].website_url) {
-    // fetches website data using the microlink API
+    // Fetches website data using the microlink API
     fetch(microlinkDomain + data[num].website_url)
       .then((res) => {
         return res.json();
       })
       .then((resjson) => {
-        // checks if the statuscode of the website is 200 and if so then the website is added
+        // Checks if the statuscode of the website is 200 and if so then the website is added
         if (
           resjson.statusCode === 200 &&
           resjson.data.image !== null &&
@@ -357,20 +376,11 @@ const domElCreate = (data, num) => {
       });
   }
 };
-// function to format each phone number input
-// I made this because I hate how the data retrieves raw numbers without the () or -
-const formatPhone = (str) => {
-  const results = str.split("");
-  results.splice(0, 0, "(");
-  results.splice(4, 0, ") ");
-  results.splice(8, 0, "-");
-  return results.join("");
-};
 
-// function domUpdate is used to update the dom with the fetched API data
+// Function domUpdate is used to update the dom with the fetched API data
 // There is an if else statement created in order to not overcrowd the page >> limiting the amount of searched to 10 per page
 // There will be a feature to go to either load more or go to the next page
-// also updates the tempHolder array for if the fetch data returns with more than 10 items
+// Also updates the tempHolder array for if the fetch data returns with more than 10 items
 const domUpdate = (resData) => {
   if (resData.length < 10 || resData.length - pageCounter * 10 < 10) {
     for (let i = 10 * pageCounter; i < resData.length; i++) {
@@ -386,4 +396,14 @@ const domUpdate = (resData) => {
       domElCreate(resData, i);
     }
   }
+};
+
+// Function to format each phone number input
+// I made this because I hated how the data retrieves raw numbers without the () or -
+const formatPhone = (str) => {
+  const results = str.split("");
+  results.splice(0, 0, "(");
+  results.splice(4, 0, ") ");
+  results.splice(8, 0, "-");
+  return results.join("");
 };
