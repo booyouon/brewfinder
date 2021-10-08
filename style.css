@@ -256,6 +256,14 @@ main {
   }
 }
 
+/* map */
+
+.map {
+  display: none;
+  height: 500px;
+  width: 100%;
+}
+
 /* footer */
 footer {
   margin: 25px 0;

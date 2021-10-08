@@ -16,6 +16,8 @@ const loadingContainer = document.querySelector(".loadingContainer");
 const favoritesSection = document.querySelector(".favorites");
 const favorites__container = document.querySelector(".favorites__container");
 const favorites__nothing = document.querySelector(".favorites__nothing");
+const mapDiv = document.querySelector(".map");
+let mapItems = [];
 // credit to Josh Olalde on unsplash for the photo
 const beerStockPhoto =
   "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80";
@@ -24,6 +26,44 @@ let pageCounter;
 if (Object.keys(localStorage).length > 0) {
   favorites__nothing.style.display = "none";
 }
+
+// creates the map on the search results
+const initMap = (latitude, longitude, array) => {
+  const options = {
+    center: { lat: latitude, lng: longitude },
+    zoom: 12,
+  };
+  map = new google.maps.Map(mapDiv, options);
+
+  for (let i = 0; i < array.length; i++) {
+    const marker = addMarker(
+      Number(array[i].latitude),
+      Number(array[i].longitude)
+    );
+    const detailWindow = addDetailWindow(array[i].name);
+    marker.addListener("mouseover", () => {
+      detailWindow.open(map, marker);
+    });
+    marker.addListener("mouseout", () => {
+      detailWindow.close(map, marker);
+    });
+  }
+};
+
+// function that creates a marker based on latitude and longitude
+const addMarker = (lat, lng) => {
+  return (marker = new google.maps.Marker({
+    position: { lat: lat, lng: lng },
+    map: map,
+  }));
+};
+
+//function that assigns text to each map pin
+const addDetailWindow = (content) => {
+  return new google.maps.InfoWindow({
+    content: `<h2>${content}</h2>`,
+  });
+};
 
 // everytime a brewery favorite button is clicked, that brewery is added to favorites
 // make a favorites button when each brewery is generated = DONE
@@ -34,13 +74,11 @@ if (Object.keys(localStorage).length > 0) {
 // delete btn is generated on each instance which has an eventlistener when clicked will localStorage.removeItem(id) = DONE
 
 for (let i = 0; i < localStorage.length; i++) {
-  console.log(domain + "/" + Object.keys(localStorage)[i]);
   fetch(domain + "/" + Object.keys(localStorage)[i])
     .then((res) => {
       return res.json();
     })
     .then((resjson) => {
-      console.log(resjson);
       const searchDiv = document.createElement("div");
       const infoDiv = document.createElement("div");
       const p = document.createElement("p");
@@ -114,6 +152,8 @@ for (let i = 0; i < localStorage.length; i++) {
 // when the submit button is press the innerHtml of the searchcontainer will be cleared if there is any
 // a fetch request will then be sent and then the searchContainer will populate with the search query
 submitButton.addEventListener("click", (ev) => {
+  mapItems = [];
+  mapDiv.style.display = "block";
   favoritesSection.style.display = "none";
   loadingContainer.style.display = "flex";
   setTimeout(() => {
@@ -143,11 +183,14 @@ submitButton.addEventListener("click", (ev) => {
           resjson.latitude +
           "," +
           resjson.longitude +
-          "&per_page=2";
+          "&per_page=12";
         fetchBrewData(search);
+      })
+      .catch((e) => {
+        console.log(`Error: ${e}`);
       });
   } else {
-    const search = domain + "?by_city=" + submitValue + "&per_page=2";
+    const search = domain + "?by_city=" + submitValue + "&per_page=12";
     fetchBrewData(search);
   }
 });
@@ -160,7 +203,23 @@ const fetchBrewData = (domain) =>
     })
     .then((resjson) => {
       domUpdate(resjson);
-
+      // loops through resjson to check which breweries have a latitude
+      for (let i = 0; i < resjson.length; i++) {
+        if (resjson[i].latitude !== null) {
+          //pushes all breweries with latitude into mapItems array
+          mapItems.push({
+            name: resjson[i].name,
+            latitude: resjson[i].latitude,
+            longitude: resjson[i].longitude,
+          });
+        }
+      }
+      console.log(mapItems);
+      initMap(
+        Number(mapItems[0].latitude),
+        Number(mapItems[0].longitude),
+        mapItems
+      );
       // If api content that comes back is greater than 10, then the nextBtn and prevBtn allow to dynamically update the page
       if (resjson.length > 10) {
         // code for adding the prevBtn and nextBtn elements
@@ -238,7 +297,6 @@ const domElCreate = (data, num) => {
       heartIcon.style.color = "white";
     } else {
       localStorage.setItem(heartValue, heartValue);
-      console.log(localStorage.getItem(heartValue));
       heartIcon.style.color = "red";
     }
   });
