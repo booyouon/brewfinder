@@ -23,6 +23,21 @@ const beerStockPhoto =
   "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80";
 let pageCounter;
 
+// Google maps api dynamic loading
+
+// Create the script tag, set the appropriate attributes
+var script = document.createElement("script");
+script.src = `https://maps.googleapis.com/maps/api/js?key=${config.googleKey}&callback=initMap`;
+script.async = true;
+
+// Attach your callback function to the `window` object
+window.initMap = function () {
+  // JS API is loaded and available
+};
+
+// Append the 'script' element to 'head'
+document.head.appendChild(script);
+
 if (Object.keys(localStorage).length > 0) {
   favorites__nothing.style.display = "none";
 }
