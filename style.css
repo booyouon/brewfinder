@@ -29,6 +29,7 @@ a {
   background-color: gray;
   padding: 25px 0;
   height: 750px;
+  /* Credit to Josh Olalde from Unsplash for photo */
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.unsplash.com/photo-1587582816472-81e94768469a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80");
   background-size: cover;
@@ -40,6 +41,7 @@ a {
   justify-content: flex-start;
   align-items: baseline;
   padding: 25px;
+  /* Credit to Josh Olalde from Unsplash for photo */
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.unsplash.com/photo-1587582816472-81e94768469a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80");
 }

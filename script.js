@@ -16,7 +16,7 @@ const favorites__nothing = document.querySelector(".favorites__nothing");
 const mapDiv = document.querySelector(".map");
 let mapItems = [];
 
-// Credit to Josh Olalde on unsplash for the photo!
+// Credit to Benece Boros on unsplash for the photo!
 const beerStockPhoto =
   "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80";
 let pageCounter;

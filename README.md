@@ -4,6 +4,29 @@
 
 Brew finder is an application used to find breweries based on your search! [Live Site](https://booyouon.github.io/brewfinder/)
 
+## Resources
+
+- ES6 Javascript
+- CSS3
+- HTML
+
+### API List
+
+- [OpenbreweryDB](https://www.openbrewerydb.org/)
+- [microLink](https://microlink.io/)
+- [Google Maps API](https://developers.google.com/maps/documentation/javascript/overview)
+- [Abstract Geolocation API](https://www.abstractapi.com/ip-geolocation-api)
+
+### Other
+
+- Visual Studio Code
+- Postman
+- [Google Icons](https://fonts.google.com/icons)
+- [Bonheur Royal](https://fonts.google.com/specimen/Bonheur+Royale) font from Google Fonts
+- Unsplash photos:
+  - [clear drinking glass](https://unsplash.com/photos/b0EBo7iwLTQ) by Josh Olalde
+  - [person filling clear glass](https://unsplash.com/photos/8T5UAV6KkZA) by Bence Boros
+
 ## API sample
 
 openbrewerydb:
