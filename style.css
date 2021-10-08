@@ -196,6 +196,7 @@ main {
   min-width: 250px;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .brewImg__heartIcon,
@@ -262,6 +263,7 @@ main {
   display: none;
   height: 500px;
   width: 100%;
+  margin-bottom: 30px;
 }
 
 /* footer */

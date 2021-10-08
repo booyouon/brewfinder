@@ -176,9 +176,11 @@ microlink:
 | JS for OpenbreweryDB API                          | 3 hr  | 4 hr                          |
 | JS for Geo API                                    | 3 hr  | < 1 hr                        |
 | JS for Microlink API                              | 3 hr  | 3 hr                          |
+| JS for Google Maps API                            | 3 hr  | 3 hr                          |
+| loadStorage Favorites Section                     | 3 hr  | 3 hr                          |
 | Rest of JS                                        | 3 hr  | 1.5 hr                        |
 | Other (Cleaning code, deleting console.logs, etc) | --    | .5 hr                         |
-| Total                                             | 18 hr | 18 hr                         |
+| Total                                             | 24 hr | 24 hr                         |
 
 ## Code Snippet
 
