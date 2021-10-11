@@ -261,11 +261,19 @@ main {
 
 /* map */
 
+.mapContainer {
+  display: none;
+  margin-bottom: 30px;
+}
+
+.map__iconCredit {
+  font-size: 12px;
+}
+
 .map {
   display: none;
   height: 500px;
   width: 100%;
-  margin-bottom: 30px;
 }
 
 /* footer */

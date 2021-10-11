@@ -14,6 +14,7 @@ const favoritesSection = document.querySelector(".favorites");
 const favorites__container = document.querySelector(".favorites__container");
 const favorites__nothing = document.querySelector(".favorites__nothing");
 const mapDiv = document.querySelector(".map");
+const mapContainer = document.querySelector(".mapContainer");
 let mapItems = [];
 
 // Credit to Benece Boros on unsplash for the photo!
@@ -53,13 +54,16 @@ const initMap = (latitude, longitude, array) => {
   // Renders the map onto the map div in index.html with the settings set by the options variable
   map = new google.maps.Map(mapDiv, options);
 
+  const imageIcon = "./public/beer.png";
+
   // Loops through the array parameter and creates a pin for each coordinate
   for (let i = 0; i < array.length; i++) {
     const marker = addMarker(
       Number(array[i].latitude),
-      Number(array[i].longitude)
+      Number(array[i].longitude),
+      imageIcon
     );
-    const detailWindow = addDetailWindow(array[i].name);
+    const detailWindow = addDetailWindow(array[i]);
     marker.addListener("mouseover", () => {
       detailWindow.open(map, marker);
     });
@@ -71,10 +75,11 @@ const initMap = (latitude, longitude, array) => {
 
 // Function that creates a marker based on latitude and longitude
 // Callback is used in initMap
-const addMarker = (lat, lng) => {
+const addMarker = (lat, lng, img) => {
   return (marker = new google.maps.Marker({
     position: { lat: lat, lng: lng },
     map: map,
+    icon: img,
   }));
 };
 
@@ -82,7 +87,7 @@ const addMarker = (lat, lng) => {
 // Callback is used in initMap
 const addDetailWindow = (content) => {
   return new google.maps.InfoWindow({
-    content: `<h2>${content}</h2>`,
+    content: `<h2>${content.name}</h2>`,
   });
 };
 
@@ -186,6 +191,7 @@ submitButton.addEventListener("click", (ev) => {
   mapItems = [];
   // Throughout this code block there are updates to the styling of elements in order to dynamically change the page without having to create a separate HTML file
   mapDiv.style.display = "block";
+  mapContainer.style.display = "block";
   favoritesSection.style.display = "none";
   loadingContainer.style.display = "flex";
   // Hides the loading icon after 2 seconds
