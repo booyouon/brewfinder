@@ -26,7 +26,6 @@ Brew finder is an application used to find breweries based on your search! [Live
 - Unsplash photos:
   - [clear drinking glass](https://unsplash.com/photos/b0EBo7iwLTQ) by Josh Olalde
   - [person filling clear glass](https://unsplash.com/photos/8T5UAV6KkZA) by Bence Boros
-- Beer Icon made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
 
 ## API sample
 
